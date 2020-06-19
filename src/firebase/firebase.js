@@ -1,4 +1,7 @@
-import * as firebase from 'firebase'
+// import * as firebase from 'firebase'
+import firebase from 'firebase/app';
+import 'firebase/database';
+import 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -12,8 +15,12 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 const db = firebase.database()
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
+googleAuthProvider.setCustomParameters({
+  'prompt': 'select_account'
+});
 
-export { firebase, db as default }
+export { firebase, googleAuthProvider, db as default }
 
 // db.ref('expenses').on('child_removed', (snapshot) => {
 //   console.log(snapshot.key, snapshot.val())
